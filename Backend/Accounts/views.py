@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .models import *
 
 from rest_framework.authtoken.models import Token
@@ -20,7 +19,6 @@ import json
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])  # [AllowAny]
 def index(request):
-    print('hi')
     data = {
         'message':"You are authenticated"
     }
@@ -34,16 +32,17 @@ def signup(request):
     data = json.loads(request.body)
     name = data['name']
     user_type = data['user_type']
-    username = data['username']
+    username = data['email']
     password = data['password']
 
 
     if User.objects.filter(username=username).exists():
         data = {
-            'message':'Username Exists',
-            'username':username
+            "message":"Username Exists",
+            "email":username,
+            "status":False
         }
-        return Response(data,status=status.HTTP_226_IM_USED)
+        return Response(data,status=status.HTTP_200_OK)
 
     user = User.objects.create_user(username=username,password=password)
     user.save()
@@ -55,12 +54,25 @@ def signup(request):
     )
     client.save()
 
-    data = {
-        'message':'User created successfully',
-        'username':username
-    }
+    user = authenticate(username=username, password=password)
 
-    return Response(data,status=status.HTTP_201_CREATED)
+    
+    token = Token.objects.get_or_create(user=user)[0].key
+    # print(token)
+    auth_login(request,user)
+    user_type = UserProfile.objects.get(user=user).user_type
+
+    data = {
+        "message":"User created successfully, LogIn success",
+        "email":username,
+        "user_type":user_type,
+        "token":token,
+        "status":True
+    }
+    # print(data)
+    
+    return Response(data, status=status.HTTP_200_OK)
+
 
 @api_view(["POST"])
 @authentication_classes([TokenAuthentication])
@@ -68,7 +80,7 @@ def signup(request):
 def login(request):
 
     data = json.loads(request.body)
-    username = data['username']
+    username = data['email']
     password = data['password']
 
     user = authenticate(username=username, password=password)
@@ -78,20 +90,24 @@ def login(request):
         # print(token)
         auth_login(request,user)
         user_type = UserProfile.objects.get(user=user).user_type
+        name = UserProfile.objects.get(user=user).name
 
         data = {
-            'message':'Success',
-            'username':username,
-            'user_type':user_type,
-            'token':token
+            "message":"Success",
+            "email":username,
+            "name":name,
+            "user_type":user_type,
+            "token":token,
+            "status":True
         }
         
-        return Response(data, status=status.HTTP_202_ACCEPTED)
+        return Response(data, status=status.HTTP_200_OK)
         
     else:
 
         data = {
-            'message':'Invalid credentials'
+            "message":"Invalid credentials",
+            "status":False
         }
         return Response(data, status=status.HTTP_401_UNAUTHORIZED)
     
@@ -101,7 +117,7 @@ def login(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([TokenAuthentication])
 def logout(request):
-    print(request.user)
+    # print(request.user)
     request.user.auth_token.delete()
     auth_logout(request)
     return Response('User Logged out successfully')
