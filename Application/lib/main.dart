@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plant_it/screens/loading_screen.dart';
 import 'package:plant_it/screens/login_screen.dart';
+import 'package:plant_it/screens/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Plant It',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primarySwatch: Colors.green,
-
           inputDecorationTheme:  InputDecorationTheme(
             labelStyle: TextStyle(
               color: Colors.green.shade300,
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
             selectionColor: Colors.lightGreen.shade200,
             selectionHandleColor: Colors.green,
           )),
-      home: const LoginScreen(),
+      home: const LoadingScreen(),
     );
   }
 }
