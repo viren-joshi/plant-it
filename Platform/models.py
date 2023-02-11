@@ -44,3 +44,12 @@ class Feed(models.Model):
 
     def __str__(self):
         return f'{self.author} - {self.caption}'
+
+class isLiked(models.Model):
+
+    username = models.CharField(max_length=100, blank=True, null=True)
+    post_id = models.CharField(max_length=100, blank=True, null=True)
+    liked = models.BooleanField()
+
+    def __str__(self):
+        return f'{self.username} - {self.post_id} - {self.liked}'
