@@ -43,7 +43,7 @@ interested in getting to know plants.
 
 ## Installation : 
 
-- Install the apk file given and you're good to go !!
+- Install the apk file in the root of the repo (app_release.apk) given and you're good to go !!
 
 ## Limitations : 
 
