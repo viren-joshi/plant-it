@@ -144,7 +144,7 @@ def feed(request):
 
 @api_view(['GET','POST'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([AllowAny]) # IsAuthenticated
+@permission_classes([AllowAny]) 
 def chat(request,user1,user2):
     if request.method == 'GET':
         print(user1,user2)
@@ -200,7 +200,7 @@ def extract_plants(path_plants):
 
 @api_view(['GET'])
 @authentication_classes([TokenAuthentication])
-@permission_classes([AllowAny]) # IsAuthenticated
+@permission_classes([AllowAny]) 
 def recommend(request):
     lat = request.GET.get('lat') 
     lon = request.GET.get('lon') 
