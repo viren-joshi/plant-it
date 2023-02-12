@@ -3,7 +3,7 @@
 
 A project made as a submission for [Tri-NIT Hackathon](https://unstop.com/hackathons/the-tri-nit-hackathon-national-institute-of-technology-nit-trichy-594092). 
 
-## Problem Statement :
+### Problem Statement :
 
 Build a one-stop solution for all gardening aspirations and the country’s farmers.
 The government of India sends millions of dollars to provide schemes and educate the
@@ -13,7 +13,7 @@ cities but need more experience. Like most farmers, they don’t know what plant
 suit their current geolocation and climate. We intend to provide a solution for everyone
 interested in getting to know plants.
 
-### Objectives :
+#### Objectives :
 
 1. For Farmers
 - Create a central platform that connects farmers from all over India with the latest advancements in agricultural technology.
@@ -29,14 +29,14 @@ interested in getting to know plants.
 - Users should be able to ask plant-specific questions that the expert community can answer on the application.
 - Users should be able to share their plant’s progress through pictures/text with the gardening community.
 
-### Features :
+#### Features :
 - Build a unified platform for people to share their agricultural innovations.
 - Users should be able to find all the specifications on how to grow any crop/plant.
 - Users can browse plant-specific questions.
 - Recommend the best plants to grow based on the user's geolocation and climate.
 - Make farmers aware of the new policies put forward by the government.
 
-### Brownie Points :
+#### Brownie Points :
 - Add multi-language support to your website or application.
 - Allow users to ask plant/crop-specific questions to experts one-on-one via chat or video call.
 - Allow communities to send financial aid to farmers directly.
