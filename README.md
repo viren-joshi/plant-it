@@ -56,3 +56,5 @@ interested in getting to know plants.
 - DigitalOcean as hosting platform to deploy.
 
 ## Video demonstration :
+
+- [Google Drive](https://drive.google.com/drive/folders/1_tMxXh83jFhXKZfxRnvDM6ycxYsFtC3w)
