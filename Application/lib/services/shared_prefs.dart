@@ -1,3 +1,8 @@
+import 'dart:convert';
+import 'dart:developer' as developer;
+
+import 'package:plant_it/constants.dart';
+import 'package:plant_it/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
@@ -7,9 +12,18 @@ class SharedPrefs {
     sharedPrefs.setString(_userKey, user);
   }
 
-  static getUser() async {
+  static Future<User> getUser() async {
     var sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getString(_userKey) ?? "***";
+    String? userData = sharedPrefs.getString(_userKey);
+    developer.log(userData ?? "NULL");
+    User user;
+    if(userData == null) {
+      user = User(name: "NULL", userType:UserType.farmer, authToken:"null", email:"null");
+    } else {
+      user = User.fromJson(jsonDecode(userData));
+    }
+    developer.log(user.email);
+    return user;
   }
 
   static Future<bool> isLoggedIn() async {

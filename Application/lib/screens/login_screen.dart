@@ -82,64 +82,69 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          if (email == "" || password == "") {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                               SnackBar(
-                                backgroundColor: Colors.redAccent.shade200,
-                                content: const Text(
-                                    "Error ! Email and Password Fields are required"),
-                              ),
-                            );
-                            return;
-                          }
-                          setState(() {
-                            isSpinning = true;
-                          });
-                          var response = await NetworkHelper.logInUser(email, password);
-                          for (var i in response.keys) {
-                            print(i + response[i].toString());
-                          }
-                          if(response["status"]) {
-                            var user = User.fromJson(response);
-                            await SharedPrefs.setUser(jsonEncode(user.toJson()));
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.0),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (email == "" || password == "") {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                 SnackBar(
+                                  backgroundColor: Colors.redAccent.shade200,
+                                  content: const Text(
+                                      "Error ! Email and Password Fields are required"),
+                                ),
+                              );
+                              return;
+                            }
+                            setState(() {
+                              isSpinning = true;
+                            });
+                            var response = await NetworkHelper.logInUser(email, password);
+                            for (var i in response.keys) {
+                              print(i + response[i].toString());
+                            }
+                            if(response["status"]) {
+                              var user = User.fromJson(response);
+                              await SharedPrefs.setUser(jsonEncode(user.toJson()));
+                              setState(() {
+                                isSpinning = false;
+                              });
+                              // TODO : Navigate to Home Screen
+                              Navigator.pop(context);
+                              Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: Colors.redAccent.shade200,
+                                  content: Text("LogIn Failed ${response["message"] ?? ""}"),
+                                ),
+                              );
+                            }
                             setState(() {
                               isSpinning = false;
                             });
-                            // TODO : Navigate to Home Screen
-                            Navigator.pop(context);
-                            Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeScreen()));
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                backgroundColor: Colors.redAccent.shade200,
-                                content: Text("LogIn Failed ${response["message"] ?? ""}"),
-                              ),
-                            );
-                          }
-                          setState(() {
-                            isSpinning = false;
-                          });
-                        },
-                        style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                          },
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                            ),
                           ),
+                          child: const Text("Plant In"),
                         ),
-                        child: const Text("Plant In"),
                       ),
-
-                      GestureDetector(
-                        onTap: () {
-                          // Take user to Sign Up Screen
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const SignUpScreen()));
-                        },
-                        child: const Text("Don't have an account? Sign Up here"),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            // Take user to Sign Up Screen
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const SignUpScreen()));
+                          },
+                          child: const Text("Don't have an account? Sign Up here"),
+                        ),
                       ),
                     ],
                   ),

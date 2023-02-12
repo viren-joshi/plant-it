@@ -50,10 +50,19 @@ class _LoadingScreenState extends State<LoadingScreen> {
                 return const SizedBox.shrink();
               }
               return Center(
-                child: CircleAvatar(
-                    backgroundImage: Image.asset("images/logo.png",scale: 0.8,).image,
-                  radius: 60,
-                    ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircleAvatar(
+                        backgroundImage: Image.asset("images/logo.png",scale: 0.8,).image,
+                      radius: 60,
+                        ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15.0),
+                      child: Text("Plant It :D", style: TextStyle(color: Colors.green, fontSize: 30, fontWeight: FontWeight.w300),),
+                    )
+                  ],
+                ),
               );
             }),
       ),

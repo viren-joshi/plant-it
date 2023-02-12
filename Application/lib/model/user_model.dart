@@ -22,7 +22,7 @@ class User {
     user.addAll({"name" : name});
     user.addAll({"email" : email});
     user.addAll({"user_type" : userType.value});
-    user.addAll({"Authorization" : authToken});
+    user.addAll({"token" : authToken});
     return user;
   }
 
