@@ -45,10 +45,6 @@ interested in getting to know plants.
 
 - Install the apk file in the root of the repo (app_release.apk) given and you're good to go !!
 
-## Limitations : 
-
-- Requests for Weather and geolocation API's are limited (upto 1000-3000 requests/day).
-
 ## Tech-Stack used :
 
 - Flutter as frontend framwork for multi-platform support and for developing application which would be easily accessible by Farmers and Enthusiasts.
